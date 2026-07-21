@@ -1,4 +1,4 @@
-# DigitalOcean App Platform spec template for Music Discovery.
+# DigitalOcean App Platform spec template for SynthDigger.
 #
 # Combines the static frontend (static-site/) and the DO Functions backend
 # (functions/) into one app, so they share one domain/origin - the static site
@@ -9,7 +9,7 @@
 # This is a TEMPLATE (committed, safe - no real secrets). The actual deploy
 # file is .do/app.yaml (gitignored), which is this file with real values
 # filled in from .env - see functions/project.yml for what each var is for.
-name: music-discovery
+name: synthdigger
 region: nyc
 
 static_sites:
