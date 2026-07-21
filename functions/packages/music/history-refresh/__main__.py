@@ -2,10 +2,15 @@
 DO Function: regenerate a saved playlist from its original params against current
 data, and re-push it to Plex under the same title.
 
-Deliberately does not regenerate AI cover art - matches the local app's existing
-design decision (see playlist.py) that a refresh shouldn't silently re-spend on
-image generation every time; the previous Plex poster is left untouched.
+Does not regenerate AI cover art (a refresh shouldn't silently re-spend on image
+generation every time) - but a `push`-time overwrite deletes and recreates the Plex
+playlist object (see push_playlist_to_plex), which would otherwise take the old
+poster down with it. So instead, if the saved history entry has a cover_key (an
+R2-hosted AI-generated cover), its presigned URL is refreshed here and reapplied to
+the new playlist; a saved cover_url (an externally-hosted, non-expiring manual link)
+is just reused as-is.
 """
+from music_embeddings import publish
 from music_embeddings.cloud import get_cached_datasource, json_response, error_response, is_preflight, preflight_response
 from music_embeddings.cloud_history import get_history_entry, record_history
 from music_embeddings.playlist import generate_playlist, push_playlist_to_plex
@@ -36,6 +41,17 @@ def main(event, context):
     except Exception as exc:
         return error_response(f"history-refresh (generate) failed: {exc}", status=500, event=event)
 
+    cover_url = entry.get("cover_url")
+    cover_key = entry.get("cover_key")
+    if cover_key:
+        try:
+            client = publish.get_r2_client()
+            cover_url = client.generate_presigned_url(
+                "get_object", Params={"Bucket": publish.config.R2_BUCKET, "Key": cover_key}, ExpiresIn=86400
+            )
+        except Exception:
+            cover_url = None
+
     try:
         result_msg = push_playlist_to_plex(
             tracks,
@@ -43,12 +59,16 @@ def main(event, context):
             overwrite=True,
             plex_url=session["plex_url"],
             plex_token=session["plex_token"],
+            cover_url=cover_url,
         )
     except Exception as exc:
         return error_response(f"history-refresh (push) failed: {exc}", status=500, event=event)
 
     try:
-        record_history(session["plex_user_id"], title, entry.get("params", {}), meta.get("description"), len(tracks))
+        record_history(
+            session["plex_user_id"], title, entry.get("params", {}), meta.get("description"), len(tracks),
+            cover_key=cover_key, cover_url=(entry.get("cover_url") if not cover_key else None),
+        )
     except Exception:
         pass
 

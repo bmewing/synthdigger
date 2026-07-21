@@ -55,14 +55,30 @@ def record_history(
     params: Dict[str, Any],
     description: Optional[str],
     track_count: int,
+    cover_key: Optional[str] = None,
+    cover_url: Optional[str] = None,
 ) -> None:
-    """Insert a new entry, or update it in place if an entry with this title already exists."""
+    """
+    Insert a new entry, or update it in place if an entry with this title already exists.
+
+    `cover_key` is the R2 object key for an AI-generated cover (its presigned URL expires,
+    but the object itself is kept forever, so history-refresh can re-presign it later).
+    `cover_url` is a stable externally-hosted cover (manually pasted, not ours to re-presign).
+    Neither is required on every call - passing neither leaves whatever a prior push already
+    saved untouched, so refreshing a playlist that has no new cover doesn't drop the old one.
+    """
     entries = load_history(plex_user_id)
     now = datetime.now(timezone.utc).isoformat()
 
     for entry in entries:
         if entry.get("title") == title:
             entry.update(params=params, description=description, track_count=track_count, updated_at=now)
+            if cover_key is not None:
+                entry["cover_key"] = cover_key
+                entry.pop("cover_url", None)
+            elif cover_url is not None:
+                entry["cover_url"] = cover_url
+                entry.pop("cover_key", None)
             break
     else:
         entries.append({
@@ -70,6 +86,8 @@ def record_history(
             "params": params,
             "description": description,
             "track_count": track_count,
+            "cover_key": cover_key,
+            "cover_url": cover_url,
             "created_at": now,
             "updated_at": now,
         })

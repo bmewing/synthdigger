@@ -50,4 +50,4 @@ def main(event, context):
     except Exception as exc:
         return error_response(f"cover generated but failed to store it: {exc}", status=500, event=event)
 
-    return json_response({"cover_url": cover_url}, event=event)
+    return json_response({"cover_url": cover_url, "cover_key": key}, event=event)

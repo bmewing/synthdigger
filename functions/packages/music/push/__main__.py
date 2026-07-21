@@ -29,6 +29,7 @@ def main(event, context):
     title = event.get("title")
     overwrite = bool(event.get("overwrite", True))
     cover_url = event.get("cover_url")
+    cover_key = event.get("cover_key")
     params = event.get("params") or {}
     description = event.get("description")
 
@@ -54,7 +55,10 @@ def main(event, context):
         )
 
     try:
-        record_history(session["plex_user_id"], title, params, description, len(tracks))
+        record_history(
+            session["plex_user_id"], title, params, description, len(tracks),
+            cover_key=cover_key, cover_url=(cover_url if not cover_key else None),
+        )
     except Exception as exc:
         # The playlist made it to Plex; losing the history entry is a lesser failure.
         logger.warning("Failed to record playlist history: %s", exc)

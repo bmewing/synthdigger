@@ -200,6 +200,7 @@ els.count.addEventListener('input', () => { els.countVal.textContent = els.count
 let currentTracks = null;
 let currentMeta = null;
 let currentCoverUrl = null;
+let currentCoverKey = null;
 let currentCoverPrompt = null;
 let currentParams = null;
 
@@ -318,6 +319,7 @@ async function doGenerateCover() {
     });
     if (cover.cover_url) {
       currentCoverUrl = cover.cover_url;
+      currentCoverKey = cover.cover_key;
       document.getElementById('cover-slot').innerHTML =
         `<img class="cover-preview" src="${cover.cover_url}" alt="Generated playlist cover art">`;
     } else {
@@ -336,6 +338,7 @@ els.form.addEventListener('submit', async (e) => {
   setBusy(genBtn, true, 'Generating playlist...');
   els.result.innerHTML = '';
   currentCoverUrl = null;
+  currentCoverKey = null;
   currentCoverPrompt = null;
 
   const params = formToParams();
@@ -372,6 +375,7 @@ async function doPush() {
         title,
         overwrite,
         cover_url: currentCoverUrl || manualCoverUrl || undefined,
+        cover_key: currentCoverUrl ? currentCoverKey : undefined,
         params: currentParams,
         description: currentMeta ? currentMeta.description : undefined,
       },
