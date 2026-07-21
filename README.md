@@ -5,7 +5,7 @@
 Build a searchable, semantic index of your Plex music library and use it to generate discovery playlists — locally from the CLI, or from anywhere through a self-hosted web app.
 
 > **New to this / setting it up for someone less technical?** There's a step-by-step,
-> plain-language setup guide in the [project wiki](https://github.com/bmewing/music_discovery/wiki).
+> plain-language setup guide in the [project wiki](https://github.com/bmewing/synthdigger/wiki).
 > This README is the technical reference.
 
 The **local pipeline** pulls track metadata and play history from Plex, extracts a semantic audio embedding for every track (Discogs-EffNet, run locally via ONNX), trains genre/style/mood taggers, and stores everything in a single-file DuckDB catalog — no database server required. The **cloud tier** (optional) publishes a read-only snapshot of that index to Cloudflare R2 and serves a small web app from DigitalOcean App Platform, where anyone with access to your Plex server can sign in with their own Plex account, generate playlists, and push them straight to Plex — complete with an AI-generated title and cover art.

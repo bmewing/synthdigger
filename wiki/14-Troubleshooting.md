@@ -35,7 +35,7 @@ that `PLEX_TOKEN` is correct and current.
 
 **A warning says my catalog schema is older/newer than the build**
 Run `synthdigger version` for details, then follow the **Upgrade steps** in the
-[CHANGELOG](https://github.com/bmewing/music_discovery/blob/main/CHANGELOG.md). "Newer than
+[CHANGELOG](https://github.com/bmewing/synthdigger/blob/main/CHANGELOG.md). "Newer than
 this build" means your code is behind — `git pull` and reinstall. See
 [[12 Keep Data Fresh and Day-2]].
 
@@ -70,4 +70,4 @@ The request likely hit the platform's time limit (very large libraries can push 
 ## Still stuck?
 
 Check the technical docs in the repo (`README.md`, `docs/DEPLOYMENT.md`) or open an issue on
-[GitHub](https://github.com/bmewing/music_discovery/issues).
+[GitHub](https://github.com/bmewing/synthdigger/issues).

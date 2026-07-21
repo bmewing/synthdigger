@@ -97,5 +97,5 @@ synthdigger version
 
 It prints the software version and tells you whether your analyzed library needs any
 upgrade steps. The full history (and the exact steps for each release) lives in the
-[CHANGELOG](https://github.com/bmewing/music_discovery/blob/main/CHANGELOG.md). See
+[CHANGELOG](https://github.com/bmewing/synthdigger/blob/main/CHANGELOG.md). See
 [[12 Keep Data Fresh and Day-2]] for how upgrades work.

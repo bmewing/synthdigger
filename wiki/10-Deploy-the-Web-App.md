@@ -60,7 +60,7 @@ cp .do/app.yaml.example .do/app.yaml
 
 Open `.do/app.yaml` in a text editor and:
 
-- Set **both** `repo:` lines to your fork: `YOUR_USERNAME/music_discovery`.
+- Set **both** `repo:` lines to your fork: `YOUR_USERNAME/synthdigger`.
 - Fill every `value: ""` under `envs` with the matching value **from your `.env`** (the
   `R2_*` values, `PLEX_SERVER_MACHINE_ID`, `SESSION_SECRET_KEY`, and `OPENROUTER_API_KEY` if
   you set one — it can stay `""` if not).

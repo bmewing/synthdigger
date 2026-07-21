@@ -15,7 +15,7 @@ region: nyc
 static_sites:
   - name: web
     github:
-      repo: YOUR_GITHUB_USER/music_discovery
+      repo: YOUR_GITHUB_USER/synthdigger
       branch: main
       deploy_on_push: true
     source_dir: static-site
@@ -23,7 +23,7 @@ static_sites:
 functions:
   - name: api
     github:
-      repo: YOUR_GITHUB_USER/music_discovery
+      repo: YOUR_GITHUB_USER/synthdigger
       branch: main
       deploy_on_push: true
     source_dir: functions

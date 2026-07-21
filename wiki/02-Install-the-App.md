@@ -28,11 +28,11 @@ Throughout this wiki, when you see two command blocks labeled **Windows (PowerSh
    try it locally:
 
    ```bash
-   git clone https://github.com/bmewing/music_discovery.git
-   cd music_discovery
+   git clone https://github.com/bmewing/synthdigger.git
+   cd synthdigger
    ```
 
-   Every command from here on assumes you're **inside** this `music_discovery` folder.
+   Every command from here on assumes you're **inside** this `synthdigger` folder.
 
 ## Step 3 — Create and activate a virtual environment
 

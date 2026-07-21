@@ -52,7 +52,7 @@ cp .do/app.yaml.example .do/app.yaml   # .do/app.yaml is gitignored - real secre
 
 Edit `.do/app.yaml`:
 
-* Set both `github.repo` fields to your fork (`you/music_discovery`) and `branch` to the branch you deploy from (`main`).
+* Set both `github.repo` fields to your fork (`you/synthdigger`) and `branch` to the branch you deploy from (`main`).
 * Fill every `value: ""` under `envs` from your `.env`. `OPENROUTER_API_KEY` may stay empty — titles and cover art are skipped gracefully.
 
 The spec deploys two components under one domain: the static frontend at `/` and the Functions at `/api/*`, which keeps every browser call same-origin (no CORS in production).

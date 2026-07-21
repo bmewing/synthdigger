@@ -45,7 +45,7 @@ synthdigger version
 
 - **"up to date"** — nothing to do.
 - **"OLDER than this build"** — follow the **Upgrade steps** for your version in the
-  [CHANGELOG](https://github.com/bmewing/music_discovery/blob/main/CHANGELOG.md).
+  [CHANGELOG](https://github.com/bmewing/synthdigger/blob/main/CHANGELOG.md).
 
 **For the web app**, redeploy after updating so the live site matches:
 - Push the new code to your fork (this auto-redeploys the site), **and**

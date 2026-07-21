@@ -27,7 +27,7 @@ def load_dotenv(dotenv_path: Path = None):
 # Load configuration values
 load_dotenv()
 
-# Base directory of the music_discovery project (2 levels up from src/music_embeddings/config.py)
+# Base directory of the synthdigger project (2 levels up from src/music_embeddings/config.py)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 
 # Model weight file configuration

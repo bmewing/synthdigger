@@ -210,7 +210,7 @@ def main():
         elif status == "needs_upgrade":
             print(f"Catalog:  v{current} - OLDER than this build (v{expected}).")
             print("          Upgrade steps are required. See the CHANGELOG:")
-            print("          https://github.com/bmewing/music_discovery/blob/main/CHANGELOG.md")
+            print("          https://github.com/bmewing/synthdigger/blob/main/CHANGELOG.md")
         elif status == "code_outdated":
             print(f"Catalog:  v{current} - NEWER than this build (v{expected}).")
             print("          Update SynthDigger: `git pull` then `pip install -e \".[ml]\"`.")

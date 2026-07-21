@@ -50,7 +50,7 @@ takes longer.
 
 **How do I know if an update needs extra steps?**
 Run `synthdigger version` after updating. It'll tell you if your catalog needs upgrading and
-point you to the [CHANGELOG](https://github.com/bmewing/music_discovery/blob/main/CHANGELOG.md).
+point you to the [CHANGELOG](https://github.com/bmewing/synthdigger/blob/main/CHANGELOG.md).
 See [[12 Keep Data Fresh and Day-2]].
 
 **Something went wrong.**

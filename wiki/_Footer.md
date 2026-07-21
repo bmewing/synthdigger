@@ -1,1 +1,1 @@
-📖 [Source code & developer docs](https://github.com/bmewing/music_discovery) · Licensed under [AGPL-3.0](https://github.com/bmewing/music_discovery/blob/main/LICENSE) · This wiki is the friendly setup guide; the repo's `README.md` and `docs/DEPLOYMENT.md` are the technical reference.
+📖 [Source code & developer docs](https://github.com/bmewing/synthdigger) · Licensed under [AGPL-3.0](https://github.com/bmewing/synthdigger/blob/main/LICENSE) · This wiki is the friendly setup guide; the repo's `README.md` and `docs/DEPLOYMENT.md` are the technical reference.

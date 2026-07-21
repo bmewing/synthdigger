@@ -4,7 +4,7 @@ Goal: tell SynthDigger how to reach your Plex server by filling in a settings fi
 
 ## Step 1 — Create your settings file
 
-In the `music_discovery` folder, make a copy of the example settings file and name it
+In the `synthdigger` folder, make a copy of the example settings file and name it
 `.env`:
 
 **Windows (PowerShell):**
