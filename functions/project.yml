@@ -1,0 +1,95 @@
+environment:
+  R2_ACCOUNT_ID: "${R2_ACCOUNT_ID}"
+  R2_ACCESS_KEY_ID: "${R2_ACCESS_KEY_ID}"
+  R2_SECRET_ACCESS_KEY: "${R2_SECRET_ACCESS_KEY}"
+  R2_BUCKET: "${R2_BUCKET}"
+  OPENROUTER_API_KEY: "${OPENROUTER_API_KEY}"
+  OPENROUTER_TEXT_MODEL: "${OPENROUTER_TEXT_MODEL}"
+  OPENROUTER_IMAGE_MODEL: "${OPENROUTER_IMAGE_MODEL}"
+  DISABLE_AI_FEATURES: "${DISABLE_AI_FEATURES}"
+  PLEX_SERVER_MACHINE_ID: "${PLEX_SERVER_MACHINE_ID}"
+  SESSION_SECRET_KEY: "${SESSION_SECRET_KEY}"
+
+packages:
+  - name: music
+    functions:
+      - name: version
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000
+      - name: generate
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 25000
+          memory: 1024
+      - name: seed-search
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 15000
+          memory: 1024
+      - name: label-search
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 15000
+          memory: 1024
+      - name: autocomplete-data
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 15000
+          memory: 512
+      - name: creative
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 28000
+      - name: cover
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 28000
+      - name: push
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 25000
+      - name: plex-auth-start
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000
+      - name: plex-auth-poll
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 15000
+      - name: whoami
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000
+      - name: logout
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000
+      - name: history-list
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000
+      - name: history-refresh
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 25000
+          memory: 1024
+      - name: history-delete
+        runtime: python:3.12
+        web: true
+        limits:
+          timeout: 10000

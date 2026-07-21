@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "music_embeddings"
+dynamic = ["version"]
+requires-python = ">=3.10"
+license = "AGPL-3.0-only"
+dependencies = [
+    "numpy",
+    "duckdb",
+    "PlexAPI",
+    "requests",
+]
+
+# `synthdigger` is the user-facing command (SynthDigger is the product name); the import
+# package stays `music_embeddings` so the cloud build's vendoring is unaffected.
+[project.scripts]
+synthdigger = "music_embeddings.cli:main"
+
+[project.optional-dependencies]
+ml = [
+    "librosa",
+    "onnxruntime",
+    "scikit-learn",
+    "scipy",
+    "soundfile",
+    "smbprotocol",
+    "pyspnego",
+    "sspilib",
+    "pyarrow",
+    "joblib",
+    "numba",
+    "pooch",
+    "audioread",
+]
+cloud = [
+    "pyarrow",
+    "boto3",
+    "duckdb",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+version = {attr = "music_embeddings.version.APP_VERSION"}

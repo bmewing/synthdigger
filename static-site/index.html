@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SynthDigger</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="site-header">
+    <div class="synth-sun" aria-hidden="true"></div>
+    <h1>SynthDigger</h1>
+    <p class="subtitle">Dig up your next favorite track. Generate a playlist from your Plex library, anywhere.</p>
+  </div>
+
+  <section id="login-gate" class="login-gate" hidden>
+    <p>Sign in with the Plex account that has access to this server.</p>
+    <button id="signin-btn" type="button" class="plex-signin">Sign in with Plex</button>
+    <p id="auth-status" class="muted"></p>
+  </section>
+
+  <div id="app" hidden>
+    <div class="account-box">
+      <span id="whoami"></span>
+      <button id="signout-btn" type="button">Sign out</button>
+    </div>
+
+    <form id="generate-form">
+      <div class="field">
+        <label for="seed_song">Seed song (optional)</label>
+        <input type="text" id="seed_song" name="seed_song" autocomplete="off" placeholder="Start typing an artist or title...">
+        <div class="suggestions"><ul id="seed_song-matches" class="suggestion-list"></ul></div>
+      </div>
+
+      <div class="field" id="vibe-field">
+        <label for="prompt">Or freeform idea</label>
+        <input type="text" id="prompt" name="prompt" placeholder="e.g. 'rainy day', 'road trip'">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="genre">Genre</label>
+          <input type="text" id="genre" name="genre" autocomplete="off" placeholder="Start typing e.g. Rock...">
+          <div class="suggestions"><ul id="genre-matches" class="suggestion-list"></ul></div>
+        </div>
+        <div class="field">
+          <label for="style">Style</label>
+          <input type="text" id="style" name="style" autocomplete="off" placeholder="Start typing e.g. Punk...">
+          <div class="suggestions"><ul id="style-matches" class="suggestion-list"></ul></div>
+        </div>
+        <div class="field">
+          <label for="mood">Mood</label>
+          <input type="text" id="mood" name="mood" autocomplete="off" placeholder="Start typing e.g. Energetic...">
+          <div class="suggestions"><ul id="mood-matches" class="suggestion-list"></ul></div>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="recent_days">Base on recent listening (last N days, optional)</label>
+          <input type="number" id="recent_days" name="recent_days" placeholder="e.g. 14" min="1" max="90">
+        </div>
+        <div class="field">
+          <label for="novelty">Novelty</label>
+          <select id="novelty" name="novelty">
+            <option value="similar" selected>Similar to what I've been listening to</option>
+            <option value="step_away">A step away</option>
+            <option value="different">Radically different</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="count">Number of tracks: <span id="count-val">50</span></label>
+        <input type="range" id="count" name="count" min="10" max="100" value="50">
+      </div>
+
+      <details class="advanced">
+        <summary>Advanced options</summary>
+        <div class="field-row">
+          <div class="field">
+            <label for="min_artists">Minimum unique artists</label>
+            <input type="number" id="min_artists" name="min_artists" value="10" min="1" max="100">
+          </div>
+          <div class="field">
+            <label for="artist_window">Artist repeat window</label>
+            <input type="number" id="artist_window" name="artist_window" value="4" min="1" max="50">
+          </div>
+          <div class="field">
+            <label for="album_window">Album repeat window</label>
+            <input type="number" id="album_window" name="album_window" value="10" min="1" max="50">
+          </div>
+        </div>
+        <div class="field checkbox-field">
+          <label><input type="checkbox" id="ignore_play_history" name="ignore_play_history"> Ignore play history (include recently played tracks)</label>
+        </div>
+        <div class="field">
+          <label for="cover_url">Use your own cover image (URL)</label>
+          <input type="text" id="cover_url" name="cover_url" placeholder="https://... (leave blank to generate one after)">
+        </div>
+        <div class="field">
+          <label for="title">Playlist title override</label>
+          <input type="text" id="title" name="title" placeholder="Leave blank for an auto-generated title">
+        </div>
+      </details>
+
+      <button id="generate-btn" type="submit">Generate Playlist</button>
+    </form>
+
+    <div id="result"></div>
+
+    <section class="history-section">
+      <h2>Your Playlists</h2>
+      <div id="history-list"></div>
+    </section>
+  </div>
+
+  <footer class="site-footer">
+    <span id="app-version" class="muted"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

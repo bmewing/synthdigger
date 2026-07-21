@@ -1,0 +1,82 @@
+# DigitalOcean App Platform spec template for Music Discovery.
+#
+# Combines the static frontend (static-site/) and the DO Functions backend
+# (functions/) into one app, so they share one domain/origin - the static site
+# is served at "/" and the API at "/api/*", which means the browser's fetch()
+# calls are same-origin (no CORS needed once this is live) and both can live
+# under one custom domain (e.g. music.example.com) once DNS points at this app.
+#
+# This is a TEMPLATE (committed, safe - no real secrets). The actual deploy
+# file is .do/app.yaml (gitignored), which is this file with real values
+# filled in from .env - see functions/project.yml for what each var is for.
+name: music-discovery
+region: nyc
+
+static_sites:
+  - name: web
+    github:
+      repo: YOUR_GITHUB_USER/music_discovery
+      branch: main
+      deploy_on_push: true
+    source_dir: static-site
+
+functions:
+  - name: api
+    github:
+      repo: YOUR_GITHUB_USER/music_discovery
+      branch: main
+      deploy_on_push: true
+    source_dir: functions
+    envs:
+      - key: R2_ACCOUNT_ID
+        type: SECRET
+        value: ""
+      - key: R2_ACCESS_KEY_ID
+        type: SECRET
+        value: ""
+      - key: R2_SECRET_ACCESS_KEY
+        type: SECRET
+        value: ""
+      - key: R2_BUCKET
+        type: GENERAL
+        value: "music-discovery"
+      - key: OPENROUTER_API_KEY
+        type: SECRET
+        value: ""
+      - key: OPENROUTER_TEXT_MODEL
+        type: GENERAL
+        value: "deepseek/deepseek-v4-flash"
+      - key: OPENROUTER_IMAGE_MODEL
+        type: GENERAL
+        value: "black-forest-labs/flux.2-klein-4b"
+      - key: DISABLE_AI_FEATURES
+        type: GENERAL
+        value: "false"
+      - key: PLEX_SERVER_MACHINE_ID
+        type: SECRET
+        value: ""
+      - key: SESSION_SECRET_KEY
+        type: SECRET
+        value: ""
+
+# Uncomment once DNS for your custom domain points at this app (see doctl apps
+# get / the dashboard's Settings > Domains tab for the CNAME target). Leaving
+# this out of a spec you `doctl apps update` with will remove any domain
+# already attached to the live app - once you've added one, keep it mirrored
+# here so it survives future spec pushes.
+# domains:
+#   - domain: music.example.com
+#     type: PRIMARY
+
+ingress:
+  rules:
+    - match:
+        path:
+          prefix: /api
+      component:
+        name: api
+    - match:
+        path:
+          prefix: /
+      component:
+        name: web
